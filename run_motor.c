@@ -25,31 +25,31 @@ int main (void){
 	int speed=260;
 	initscr();
 	while(1){
-	c = getch();
-	delay(10);
+		c = getch();
+		delay(10);
 
-	switch (c){
-		case '8':
-			if (speed<500) speed+=30;
-			delay(5);
-		break;
-		case '2':
-			if (speed>260) speed-=30;
-			delay(5);
-		break;
-		case '6':
-			digitalWrite(CW,HIGH);
-			digitalWrite(CCW,LOW);
-		break;
-		case '4':
-			digitalWrite(CW,LOW);
-			digitalWrite(CCW,HIGH);
-		break;
-		//default:
-		
+		switch (c){
+			case '8':
+				if (speed<500) speed+=30;
+				delay(5);
+			break;
+			case '2':
+				if (speed>260) speed-=30;
+				delay(5);
+			break;
+			case '6':
+				digitalWrite(CW,HIGH);
+				digitalWrite(CCW,LOW);
+			break;
+			case '4':
+				digitalWrite(CW,LOW);
+				digitalWrite(CCW,HIGH);
+			break;
+			//default:
+			
+		}
+		pwmWrite(SPEED,speed);
 	}
-	pwmWrite(SPEED,speed);
-}
 
 	return EXIT_SUCCESS;
 	
