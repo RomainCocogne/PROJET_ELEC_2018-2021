@@ -6,14 +6,14 @@
 
 Servo servo;
 
-int16_t val=90;
+uint8_t val=90;
 
 void setup() {
   Serial.begin(9600);
   Serial.setTimeout(10); //Pour gagner en rapidité
   servo.attach(COMMAND);
   servo.write(val);
-  Serial.println("Setup OK");
+  //Serial.println("Setup OK");
 }
 
 void loop() {
@@ -21,7 +21,7 @@ void loop() {
     char char_buffer[3] = {' ',' ',' '};
     Serial.readBytes(char_buffer,3);
     val = atoi(char_buffer);
-    Serial.print("Angle : ");Serial.println(val);
+    //Serial.print("Angle : ");Serial.println(val);
     servo.write(val);
    }
   delay(10);

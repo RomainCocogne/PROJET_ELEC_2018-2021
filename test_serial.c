@@ -13,7 +13,7 @@
 int main ()
 {
   int serial_port ;
-  char dat;
+  //char dat;
   if ((serial_port = serialOpen ("/dev/ttyS0", 9600)) < 0)	/* open serial port */
   {
     fprintf (stderr, "Unable to open serial device: %s\n", strerror (errno)) ;
@@ -25,15 +25,20 @@ int main ()
     fprintf (stdout, "Unable to start wiringPi: %s\n", strerror (errno)) ;
     return 1 ;
   }
+ 
   while(1){
 	  
-	if(serialDataAvail (serial_port) )
-	{ 
-		dat = serialGetchar (serial_port);		/* receive character serially*/	
-		printf ("%c", dat) ;
-		fflush (stdout) ;
-		//serialPutchar(serial_port, dat);		/* transmit character serially on port */
-		  }
+	// if(serialDataAvail (serial_port) )
+	// { 
+	// 	dat = serialGetchar (serial_port);		/* receive character serially*/	
+	// 	printf ("%c", dat) ;
+	// 	fflush (stdout) ;
+	// 	//serialPutchar(serial_port, dat);		/* transmit character serially on port */
+	// 	  }
+    char string[3] = {' ',' ',' '}; //String de trois caractéres max
+    if (scanf("%s",string)){  //Lit un string sur le temrinal (trois caractéres max)
+      serialPuts(serial_port,string); //Envoie le string par uart  
+    }
 	}
 
 }
