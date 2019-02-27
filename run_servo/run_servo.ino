@@ -9,20 +9,18 @@ Servo servo;
 uint8_t val=90;
 
 void setup() {
-  Serial.begin(9600);
-  Serial.setTimeout(10); //Pour gagner en rapidité
   servo.attach(COMMAND);
   servo.write(val);
-  //Serial.println("Setup OK");
+  Serial.begin(9600);
 }
 
 void loop() {
-  if (Serial.available() > 0){
-    char char_buffer[3] = {' ',' ',' '};
-    Serial.readBytes(char_buffer,3);
-    val = atoi(char_buffer);
-    //Serial.print("Angle : ");Serial.println(val);
-    servo.write(val);
-   }
-  delay(10);
+//  val = 0;
+//  for (int i=0;i<10;i++){
+     val = map(analogRead(5),900,0,90,180);
+//  }
+//  val = val/10;
+  servo.write(val);
+  Serial.print(analogRead(5));Serial.print(" ; ");Serial.println(val);
+  delay(100);
 }
