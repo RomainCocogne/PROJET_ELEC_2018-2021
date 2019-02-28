@@ -3,24 +3,55 @@
 #include <Servo.h>
 
 #define COMMAND 9 
+#define RIGHT 5
+#define LEFT 4
 
 Servo servo;
 
-uint8_t val=90;
+uint8_t angle=90;
 
 void setup() {
   servo.attach(COMMAND);
-  servo.write(val);
+  servo.write(angle);
   Serial.begin(9600);
 }
 
 void loop() {
-//  val = 0;
-//  for (int i=0;i<10;i++){
-     val = map(analogRead(5),900,0,90,180);
-//  }
-//  val = val/10;
-  servo.write(val);
-  Serial.print(analogRead(5));Serial.print(" ; ");Serial.println(val);
-  delay(100);
+	int r=analogRead(RIGHT);
+	int l=analogRead(LEFT);
+
+	angle= map(l-r,1024,-1024,0,180);
+	servo.write(angle);
+	// if (Serial.available() > 0) {
+	// 	adapte_angle(Serial.read());
+	// 	servo.write(angle);
+	// 	Serial.println(angle);
+ //  	}
+  	
+  	Serial.print(l-r);Serial.print(" ; ");Serial.println(angle);
+  	delay(100);
+}
+
+
+
+void adapte_angle(char c){
+	switch (c) {
+	    case 'q':
+	    	if(angle<180) angle=angle+10;
+	      break;
+	    case 'd':
+	      	if(angle>0) angle=angle-10;
+	      break;
+	    case 'l':
+	    	angle=180;
+	      break;
+	    case 'r':
+	    	angle=0;
+	      break;
+	    case 'a':
+	    	angle=90;
+	      break;
+	    default:
+	      return;
+	}
 }
