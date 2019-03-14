@@ -29,9 +29,9 @@ void setup() {
 
 
 void loop() {
-	//int r=analogRead(RIGHT);
-	//int l=analogRead(LEFT);
-
+	int r=analogRead(RIGHT);
+	int l=analogRead(LEFT);
+/*
 	digitalWrite(R_TRIG, LOW);
 	delayMicroseconds(2);
 	digitalWrite(R_TRIG, HIGH);
@@ -45,6 +45,8 @@ void loop() {
 	delayMicroseconds(10);
 	digitalWrite(L_TRIG, LOW);
 	int l=pulseIn(L_ECHO, HIGH);
+*/
+
 
 
 	angle= map(l-r,2000,-2000,0,180);
@@ -55,7 +57,7 @@ void loop() {
 	// 	Serial.println(angle);
  //  	}
   	
-  	Serial.print(l-r);Serial.print(" ; ");Serial.println(angle);
+  	Serial.print(r);Serial.print(" ; ");Serial.println(angle);
   	delay(100);
 }
 
