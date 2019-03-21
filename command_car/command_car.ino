@@ -13,10 +13,12 @@
 /*********** macro *************/
 
 //output
-#define FOR   7		#define BACK  8
-#define SPEED 9		#define SERVO 12 
+#define FOR   7		
+#define SPEED 9		
+#define SERVO 12 
 //input
-#define IR_R  3		#define IR_L  4
+#define IR_R  3		
+#define IR_L  4
 
 /*******************************/
 
@@ -34,11 +36,10 @@ void setup() {
 //pin mode
 	//output 						//input pas utiles ici
 	pinMode (FOR  , OUTPUT);		pinMode (IR_R , INPUT );
-  	pinMode (BACK , OUTPUT);		pinMode (IR_L , INPUT );
-  	pinMode (SPEED, OUTPUT);
+  	pinMode (SPEED, OUTPUT);		pinMode (IR_L , INPUT );
 
 //servo
-	servo.attach (COMMAND);			servo.write(angle);
+	servo.attach (SERVO);			servo.write(angle);
 
 //serial
 	Serial.begin(9600); 			while(!Serial);
@@ -75,9 +76,9 @@ void extract_data(char c, int *speed, int *angle){
 
 //fait rouler la voiture
 void command_car(int speed, int angle){
-	if      (speed>0)		{digitalWrite(FOR, HIGH);		digitalWrite(BACK, LOW );}
-	else if (speed<0)		{digitalWrite(FOR, LOW );	    digitalWrite(BACK, HIGH);
-															speed = -speed          ;}
+	if      (speed>0)		{digitalWrite(FOR, HIGH);}
+	else if (speed<0)		{digitalWrite(FOR, LOW );	   
+						 	 speed = -speed         ;}
 	analogWrite(SPEED, speed);
 	servo.write(angle);
 }
