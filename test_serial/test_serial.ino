@@ -10,5 +10,5 @@ void loop() {
 		char c=Serial.read();
 		Serial.print(c);
 	}
-	delay(10);
+	//delay(10);
 }

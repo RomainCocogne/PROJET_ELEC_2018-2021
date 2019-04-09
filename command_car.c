@@ -6,9 +6,12 @@
 
 /************ library **********/
 
-#include <stdio.h >		#include <stdlib.h>
-#include <curses.h>		#include <errno.h>
-#include <wiringPi.h>	#include <wiringSerial.h>
+#include <stdio.h>		
+#include <stdlib.h>
+#include <curses.h>		
+#include <errno.h>
+#include <wiringPi.h>	
+#include <wiringSerial.h>
 
 /*******************************/
 

@@ -14,8 +14,8 @@
 
 //output
 #define FOR   7		
-#define SPEED 9		
-#define SERVO 12 
+#define SPEED 10
+#define SERVO 5 
 //input
 #define IR_R  3		
 #define IR_L  4
@@ -38,8 +38,10 @@ void setup() {
 	pinMode (FOR  , OUTPUT);		pinMode (IR_R , INPUT );
   	pinMode (SPEED, OUTPUT);		pinMode (IR_L , INPUT );
 
-//servo
+//servoz
 	servo.attach (SERVO);			servo.write(angle);
+//moteur
+	analogWrite(SPEED, speed);
 
 //serial
 	Serial.begin(9600); 			while(!Serial);
@@ -51,8 +53,10 @@ void setup() {
 void loop() {
 	if (Serial.available() > 0) {
 		extract_data(Serial.read(),&speed,&angle);
-		command_car(speed,angle);
+		Serial.println(speed);
+		Serial.println(angle);
   	}
+  	command_car(speed,angle);
 }
 
 /***************************************/
@@ -62,8 +66,8 @@ void loop() {
 //traite les donnees recus par le serial
 void extract_data(char c, int *speed, int *angle){
 	switch (c) {
-	    case 'z':		if(*speed<245 ) 	*speed=*speed+10;		break ;
-	    case 's':		if(*speed>-245)     *speed=*speed-10; 	    break ;
+	    case 'z':		if(*speed<250 ) 	*speed=*speed+5;		break ;
+	    case 's':		if(*speed>-250)     *speed=*speed-5; 	    break ;
 	    case 'd':		if(*angle>0   ) 	*angle=*angle-10;		break ;
 	    case 'q':		if(*angle<180 ) 	*angle=*angle+10;		break ;
 	    case 'a':							*speed=0        ;		break ;
@@ -76,9 +80,14 @@ void extract_data(char c, int *speed, int *angle){
 
 //fait rouler la voiture
 void command_car(int speed, int angle){
+
+	servo.write(angle);
 	if      (speed>0)		{digitalWrite(FOR, HIGH);}
 	else if (speed<0)		{digitalWrite(FOR, LOW );	   
 						 	 speed = -speed         ;}
-	analogWrite(SPEED, speed);
-	servo.write(angle);
+	//analogWrite(SPEED, speed);
+	digitalWrite(SPEED, HIGH);
+  	delayMicroseconds(speed);
+  	digitalWrite(SPEED, LOW);
+  	delayMicroseconds(speed);
 }
